@@ -87,7 +87,7 @@
             </form>
             <p class="text-center text-lg font-medium py-2">
               Already have account?
-              <a href="../User/login.php" class="text-[#9C4DF4] font-bold">Sign In</a>
+              <a href="../User/registration.php" class="text-[#9C4DF4] font-bold">Sign Up</a>
             </p>
           </div>
         </div>

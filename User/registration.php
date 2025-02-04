@@ -1,15 +1,46 @@
 <?php
+require "../component/db_conn.php";
 
-$name = $email = $password ='';
+$name = $email = $password =  $msg ="";
+$nameErr = $emailErr = $passwordErr = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  if(isset($_POST['submit'])){
+    if (isset($_POST['submit'])) {
+        if (empty($_POST['name'])) {
+            $nameErr = "Name field cannot be empty";
+        } else {
+            $name = $_POST['name'];
+        }
 
+        if (empty($_POST['email'])) {
+            $emailErr = "Email field cannot be empty";
+        } else {
+            $email = $_POST['email'];
+        }
 
-  }
+        if (empty($_POST['pass'])) {
+            $passwordErr = "Password field cannot be empty";
+            
+        } else {
+            $password = password_hash($_POST['pass'], PASSWORD_DEFAULT); 
+        }
+
+        if (empty($nameErr) && empty($emailErr) && empty($passwordErr)) {
+            $sql  = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt ->bind_param("sss", $name, $email, $password);
+            
+            if ($stmt->execute()) {
+                $msg = "Registration Successful.";
+            } else {
+                $msg = "Error: " . $stmt->error;
+            }
+            
+            $stmt->close();
+        }
+    }
 }
 ?>
-
 
 
 
@@ -43,6 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               method="post"
               class=" w-[370px] flex flex-col items-center justify-center   gap-4"
             >
+
+            <div class=""> 
+              <p class="w-full  text-xl font-bold"><?php echo $msg;  ?></p>
+             
+            </div>
+
             <div class="w-full">
                 <label for="" class="my-2">Full Name</label>
 
@@ -100,6 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 name="submit"
                   type="submit"
                   value="Sign Up"
+                  id="btn"
                   class="bg-[#9C4DF4] p-3 rounded-xl w-full text-white font-medium cursor-pointer"
                 />
               </div>
