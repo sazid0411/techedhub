@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             if ($stmt->execute()) {
                 $msg = "Registration Successful.";
+                header("Location: login.php");
             } else {
                 $msg = "Error: " . $stmt->error;
             }
@@ -40,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
+
+$conn -> close();
 ?>
 
 
