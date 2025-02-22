@@ -153,5 +153,7 @@ $conn -> close();
         </div>
       </div>
     </main>
+  <?php include "../component/footer.php" ?>
+
   </body>
 </html>

@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 </head>
 
 <body class="bg-[#5D5A6F]">
-  <?php require "../component/head.php" ?>
+  <?php include "../component/head.php" ?>
   <main class="font-nunito md:h-[90vh] flex items-center justify-center mt-4 md:mt-0 p-6">
     <div class="md:w-[1060px] bg-white shadow-2xl rounded-2xl  md:px-[88px]  p-4 md:py-[105px]">
       <div class="flex flex-col md:flex-row items-center justify-evenly">
@@ -113,6 +113,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
       </div>
     </div>
   </main>
+  <?php include "../component/footer.php" ?>
 </body>
+
 
 </html>

@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&display=swap');
+
 .font-nunito {
-    font-family: "Nunito", serif;
-    font-optical-sizing: auto;
-  }
+  font-family: "Nunito", serif;
+  font-optical-sizing: auto;
+}
+
+.font-borel {
+  font-family: "Borel", serif;
+}
