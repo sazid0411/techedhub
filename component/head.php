@@ -1,3 +1,4 @@
+<?php //session_start() ?>
 <head>
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <script src="https://kit.fontawesome.com/1b37f18062.js" crossorigin="anonymous"></script>
@@ -12,7 +13,7 @@
     <div class="hidden md:block">
       <ul class="flex items-center justify-between gap-6 font-medium ">
         <li><a href="../User/home.php" class="hover:text-[#9C4DF4]">Home</a></li>
-        <li><a href="../User/courses.php" class="hover:text-[#9C4DF4]">Course</a></li>
+        <li><a href="../User/course.php" class="hover:text-[#9C4DF4]">Course</a></li>
         <li><a href="../User/mentors.php" class="hover:text-[#9C4DF4]">Mentors</a></li>
         <li><a href="../User/about.php" class="hover:text-[#9C4DF4]">About</a></li>
       </ul>

@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (empty($_POST['pass'])) {
             $passwordErr = "Password field cannot be empty";
-            
+                 
         } else {
             $password = password_hash($_POST['pass'], PASSWORD_DEFAULT); 
         }

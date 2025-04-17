@@ -61,24 +61,24 @@
             }
         },
         // PHP
-        // {
-        //     "scope": [
-        //         "source.php",
-        //         "punctuation.section.embedded.begin.php",
-        //         "punctuation.section.embedded.end.php",
-        //         "support.function.construct.php",
-        //         "entity.name.function.php",
-        //         "support.class.php",
-        //         "support.constant.php",
-        //         "comment.block.php",
-        //         "storage.type.php",
-        //         "keyword.operator"
-        //     ],
-        //     "settings": {
+        {
+            "scope": [
+                "source.php",
+                "punctuation.section.embedded.begin.php",
+                "punctuation.section.embedded.end.php",
+                "support.function.construct.php",
+                "entity.name.function.php",
+                "support.class.php",
+                "support.constant.php",
+                "comment.block.php",
+                "storage.type.php",
+                "keyword.operator"
+            ],
+            "settings": {
           
-        //         "fontStyle": "italic"
-        //     }
-        // }
+                "fontStyle": "italic"
+            }
+        }
     ]
 },
 "files.autoSave": "afterDelay"
