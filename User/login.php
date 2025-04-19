@@ -34,8 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
         $_SESSION['user_id'] = $user_id;
         $_SESSION['email'] = $db_email;
         $_SESSION['logged_in'] = true;
-
-        // header("Location: home.php");
         exit();
 
         exit();
