@@ -1,4 +1,72 @@
-<?php session_start(); ?>
+<?php session_start();
+
+
+require "../component/db_conn.php";
+
+$first_name_db = $last_name_db = $phone_db = $dob_db = $gender_db = $image_db = "";
+
+$email_db = $_SESSION['email'];
+
+$sql = "SELECT * FROM profile WHERE email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email_db);
+$stmt->execute();
+$result = $stmt->get_result();
+
+
+
+if ($row = $result->fetch_assoc()) {
+    echo "kjhgk" . $row["first_name"];
+    $first_name_db = $row['first_name'];
+    $last_name_db  = $row['last_name'];
+    $email_db      = $row['email'];
+    $phone_db      = $row['phone'];
+    $dob_db        = $row['dob'];
+    $gender_db     = $row['gender'];
+    $image_db      = $row['profile_image'];
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
+
+    $first_name = $_POST['first-name'];
+    $last_name = $_POST['last-name'];
+    $email = $_SESSION['email'];
+    $phone = $_POST['phone'];
+    $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
+    $profile_image = '';
+    if (isset($_FILES["profile-image"]) && $_FILES["profile-image"]["error"] === 0) {
+        $upload_dir = "uploads/";
+        if (!is_dir($upload_dir)) mkdir($upload_dir);
+        $profile_image = time() . "_" . basename($_FILES["profile-image"]["name"]);
+        $target_path = $upload_dir . $profile_image;
+        move_uploaded_file($_FILES["profile-image"]["tmp_name"], $target_path);
+    }
+
+
+    $sql = "INSERT INTO profile (first_name, last_name, email, phone, dob, gender, profile_image)
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssss", $first_name, $last_name, $email, $phone, $dob, $gender, $profile_image);
+
+    if ($stmt->execute()) {
+        echo '<script>alert("Profile Updated Successfully")</script>';
+    } else {
+        echo '<script>alert("Profile Updated Failed")</script>';
+    }
+
+    $stmt->close();
+}
+$conn->close();
+
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +99,7 @@
 
         <div class="mt-10 flex items-center justify-between ">
             <div class="p-2 flex items-center gap-6 ">
-                <img src="../assets/boy-bg.png" alt="" class="w-[90px] h-[90px] rounded-[50%]">
+                <img src="<?php echo $image_db; ?>" alt="" class="w-[90px] h-[90px] rounded-[50%]">
                 <div class="">
                     <h1 class="font-bold text-2xl">Alexa Rawles</h1>
                     <p class="text-[#000000]">alexarawles@gmail.com</p>
@@ -52,42 +120,42 @@
                             <label for="first-name" class="text-lg px-2">
                                 First Name
                             </label>
-                            <input disabled type="text" value="Sazid" name="first-name"
+                            <input disabled type="text" value="<?php echo $first_name_db; ?>" name="first-name"
                                 class="w-full p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                         <div class="flex flex-col items-start justify-center gap-2 p-3">
                             <label for="first-name" class="text-lg px-2">
                                 Last Name
                             </label>
-                            <input disabled type="text" value="Ahamed" name="first-name"
+                            <input disabled type="text" value="<?php echo $first_name_db; ?>" name="first-name"
                                 class="w-full p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                         <div class="flex flex-col items-start justify-center gap-2 p-3">
                             <label for="first-name" class="text-lg px-2">
                                 Email
                             </label>
-                            <input disabled type="text" value="sazidahamed04@gmail.com" name="first-name"
+                            <input disabled type="text" value="<?php echo $first_name_db; ?>" name="first-name"
                                 class="w-full p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                         <div class="flex flex-col items-start justify-center gap-2 p-3">
                             <label for="first-name" class="text-lg px-2">
                                 Phone
                             </label>
-                            <input disabled type="text" value="0123456789" name="first-name"
+                            <input disabled type="text" value="<?php echo $first_name_db; ?>" name="first-name"
                                 class="w-full p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                         <div class="flex flex-col items-start justify-center gap-2 p-3">
                             <label for="first-name" class="text-lg px-2">
                                 Date Of Birth
                             </label>
-                            <input disabled type="text" value="04-11-2002" name="first-name"
+                            <input disabled type="text" value="<?php echo $first_name_db; ?>" name="first-name"
                                 class="w-full p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                         <div class="flex flex-col items-start justify-center gap-2 p-3">
                             <label for="first-name" class="text-lg px-2">
                                 Gender
                             </label>
-                            <input disabled type="text" value="Male" name="first-name"
+                            <input disabled type="text" value="<?php echo $first_name_db; ?>" name="first-name"
                                 class="w-full p-3 border-2 border-gray-300 rounded-lg">
                         </div>
 
@@ -99,13 +167,6 @@
             </div>
         </div>
 
-
-
-
-
-
-
-
         <div id="editModal"
             class="max-w-[900px] hidden   h-[70vh] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 rounded-2xl  border bg-[#EFEBF5]">
             <div class="space-y-3">
@@ -115,7 +176,7 @@
                 <p class="text-xl  text-center text-gray-400">Please Fill the form to update details</p>
             </div>
             <div class="relative">
-                <form action="" class="space-y-4">
+                <form method="post" class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2  mt-3">
                         <div class="flex flex-col items-start justify-center gap-2 p-3">
                             <label for="first-name" class="text-lg px-2">
@@ -128,28 +189,28 @@
                             <label for="first-name" class="text-lg px-2">
                                 Last Name
                             </label>
-                            <input type="text" placeholder="Enter first name" name="first-name"
+                            <input type="text" placeholder="Enter first name" name="last-name"
                                 class="max-w-[350px] p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                         <div class="flex flex-col items-start justify-center gap-2 p-3">
                             <label for="first-name" class="text-lg px-2">
                                 Email
                             </label>
-                            <input type="text" placeholder="Enter first name" name="first-name"
+                            <input disabled type="email" placeholder="Enter first name" name="email"
                                 class="max-w-[350px] p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                         <div class="flex flex-col items-start justify-center gap-2 p-3">
                             <label for="first-name" class="text-lg px-2">
                                 Phone
                             </label>
-                            <input type="text" placeholder="Enter first name" name="first-name"
+                            <input type="number" placeholder="Enter first name" name="phone"
                                 class="max-w-[350px] p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                         <div class="flex flex-col items-start justify-center gap-2 p-3">
                             <label for="first-name" class="text-lg px-2">
                                 Date Of Birth
                             </label>
-                            <input type="date" placeholder="Enter first name" name="first-name"
+                            <input type="date" placeholder="Enter first name" name="dob"
                                 class="w-full p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                         <div class="flex flex-col items-start justify-center gap-2 p-3">
@@ -166,13 +227,13 @@
                             <label for="first-name" class="text-lg px-2">
                                 Profile Image
                             </label>
-                            <input type="file" placeholder="Enter first name" name="first-name"
+                            <input type="file" placeholder="Enter first name" name="profile-image"
                                 class="w-full p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                     </div>
 
                     <div class="flex items-center justify-center px-3">
-                        <input type="submit" value="Update Profile"
+                        <input type="submit" value="Update Profile" name="submit"
                             class="col-span-2 bg-[#9C4DF4] p-3 rounded-xl  text-white font-medium cursor-pointer w-full   ">
                     </div>
 
@@ -187,19 +248,6 @@
         </div>
 
     </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <?php include "../component/footer.php" ?>
 
