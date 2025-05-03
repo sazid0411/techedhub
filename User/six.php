@@ -1,4 +1,5 @@
     <?php
+    session_start();
 
     require "../component/db_conn.php";
 
@@ -26,10 +27,11 @@
         <section class="max-w-[1280px] mx-auto py-12">
 
             <div class="flex gap-5 items-start">
-                <video width="850" height="518" controls class="rounded-2xl shadow-lg">
-                    <source src="../../../video/video.mp4" type="video/mp4">
+                <video id="mainVideo" width="850" height="518" controls class="rounded-2xl shadow-lg">
+                    <source src="../video/video2.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+
 
                 <div class="w-full">
                     <?php while ($chapter = $chapters->fetch_assoc()): ?>
@@ -59,6 +61,22 @@
 
 
         <?php include "../component/footer.php" ?>
+
+
+
+
+        <script>
+            document.querySelectorAll('.topic-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const videoUrl = btn.dataset.video;
+                    const videoElement = document.getElementById('mainVideo');
+                    videoElement.querySelector('source').src = videoUrl;
+                    videoElement.load();
+                    videoElement.play();
+                });
+            });
+        </script>
+
 
 
     </body>
