@@ -23,3 +23,27 @@ CREATE TABLE profile (
     `gender` VARCHAR(10),
     `profile_image` VARCHAR(255)
 );
+
+
+-- classes
+CREATE TABLE classes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+-- chapters
+CREATE TABLE chapters (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    class_id INT,
+    title VARCHAR(100),
+    FOREIGN KEY (class_id) REFERENCES classes(id)
+);
+
+-- topics
+CREATE TABLE topics (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    chapter_id INT,
+    title VARCHAR(100),
+    video_url TEXT,
+    FOREIGN KEY (chapter_id) REFERENCES chapters(id)
+);
