@@ -64,9 +64,10 @@ session_start();
                 480 vertical scan lines or 576 vertical lines is considered
                 high-definition.
             </p>
-            <button class="px-7 rounded-xl py-4 text-white text-xl bg-[#9C4DF4] mt-5 md:mt-[40px]">
-                Visit Courses
-            </button>
+            <a href="../User/course.php"
+            class="bg-[#9C4DF4] font-medium text-white px-8 py-3 rounded-lg cursor-pointer hidden md:block">
+            Visit Courses
+          </a>
         </div>
 
         <div class="mt-5 md:mt-[60px] bg-white p-5 rounded-xl">
