@@ -8,3 +8,7 @@
 .font-borel {
   font-family: "Borel", serif;
 }
+
+.active {
+  color: #9C4DF4;
+}

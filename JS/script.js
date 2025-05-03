@@ -10,7 +10,6 @@ document.getElementById('menuBtn').addEventListener('click', () => {
     }
 
     state = !state
-    
-})
 
+})
 
