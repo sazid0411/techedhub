@@ -1,6 +1,11 @@
 <?php
 session_start();
-require "../component/db_conn.php"; // Ensure you include your DB connection here
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header("Location: login.php");
+    exit();
+}
+
+require "../component/db_conn.php";
 
 
 
@@ -34,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     $phone      = $_POST['phone'] ?? '';
     $dob        = $_POST['dob'] ?? '';
     $gender     = $_POST['gender'] ?? '';
-    $profile_image = $image_db;
+    $profile_image = $_POST['profile-image'] ?? '';
 
 
     $check = $conn->prepare("SELECT id FROM profile WHERE email = ?");
@@ -50,29 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
     }
     $check->close();
 
-    if (isset($_FILES["profile-image"]) && $_FILES["profile-image"]["error"] === 0) {
-        $target_dir = "uploads/";
-        $imageFileType = strtolower(pathinfo($_FILES["profile-image"]["name"], PATHINFO_EXTENSION));
-        $new_filename = uniqid("IMG_", true) . "." . $imageFileType;
-        $target_file = $target_dir . $new_filename;
-
-        $check = getimagesize($_FILES["profile-image"]["tmp_name"]);
-        $allowedTypes = ['jpg', 'jpeg', 'png', 'gif'];
-
-        if ($check !== false && in_array($imageFileType, $allowedTypes)) {
-            if ($_FILES["profile-image"]["size"] <= 2000000) {
-                if (move_uploaded_file($_FILES["profile-image"]["tmp_name"], $target_file)) {
-                    $profile_image = $target_file;
-                } else {
-                    echo "Image upload failed.";
-                }
-            } else {
-                echo "Image too large.";
-            }
-        } else {
-            echo "Invalid image file.";
-        }
-    }
 
     $sql = "UPDATE profile SET first_name=?, last_name=?, phone=?, dob=?, gender=?, profile_image=? WHERE email=?";
     $stmt = $conn->prepare($sql);
@@ -132,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
         <!--  -->
         <div class="mt-10 flex items-center justify-between ">
             <div class="p-2 flex items-center gap-6 ">
-                <img src="<?php echo "uploads/".$image_db; ?>" alt="" class="w-[90px] h-[90px] rounded-[50%]">
+                <img src="<?php echo $image_db; ?>" alt="" class="w-[90px] h-[90px] rounded-[50%]">
                 <div class="">
                     <h1 class="font-bold text-2xl"><?php if (empty($first_name_db)) {
                                                         echo "Update Your Name";
@@ -264,7 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
                             <label for="first-name" class="text-lg px-2">
                                 Profile Image
                             </label>
-                            <input type="file" placeholder="Enter first name" name="profile-image"
+                            <input type="text" placeholder="Enter Profile Image URL" name="profile-image"
                                 class="w-full p-3 border-2 border-gray-300 rounded-lg">
                         </div>
                     </div>

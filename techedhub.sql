@@ -5,7 +5,7 @@
 --
 --table for user
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -47,3 +47,22 @@ CREATE TABLE topics (
     video_url TEXT,
     FOREIGN KEY (chapter_id) REFERENCES chapters(id)
 );
+
+
+
+
+    CREATE TABLE courses (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        class VARCHAR(100) NOT NULL,
+        instructor_name VARCHAR(255) NOT NULL,
+        total_lectures INT NOT NULL,
+        duration VARCHAR(100) NOT NULL,
+        level VARCHAR(50) NOT NULL,
+        language VARCHAR(50) NOT NULL,
+        price DOUBLE(10, 2) NOT NULL,
+        thumbnail VARCHAR(500) NOT NULL,
+        description TEXT NOT NULL,
+        status ENUM('active', 'inactive') NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );

@@ -17,7 +17,7 @@
     <div class="hidden md:block">
       <ul class="flex items-center justify-between gap-6 font-medium ">
         <li><a href="../User/home.php" class="hover:text-[#9C4DF4] text-lg navBtn">Home</a></li>
-        <li><a href="course.php" class="hover:text-[#9C4DF4]text-lg  navBtn">Course</a></li>
+        <li><a href="course.php" class="hover:text-[#9C4DF4] text-lg  navBtn">Course</a></li>
         <li><a href="mentors.php" class="hover:text-[#9C4DF4] text-lg navBtn">Mentors</a></li>
         <li><a href="about.php" class="hover:text-[#9C4DF4] text-lg navBtn">About</a></li>
       </ul>

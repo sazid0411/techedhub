@@ -1,10 +1,16 @@
 <?php
-  include "../component/classList.php";
+require "../component/db_conn.php";
+include "../component/classList.php";
 session_start();
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: login.php");
     exit();
 }
+
+
+$sql = "SELECT * FROM courses ORDER BY id DESC";
+$result = $conn->query($sql);
+
 ?>
 
 
@@ -33,40 +39,41 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 
     <section class="max-w-[1280px] mx-auto py-6 ">
-        <h1 class="text-3xl font-[700]">
-            Standard Classes
-        </h1>
+      
+
+        <div class="space-y-10 mt-20">
+            <h1 class="text-3xl text-center font-bold">All Courses</h1>
 
 
-        <div class=" grid grid-cols-4 gap-10 text-center mt-8">
 
-        
+            <?php if ($result && $result->num_rows > 0): ?>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <div class="bg-[#EFEBF5] border border-[#9C4DF4] rounded-lg p-5 space-y-3 flex flex-col justify-between">
+                            <img src="<?php echo htmlspecialchars($row['thumbnail']); ?>" alt="Thumbnail" class="w-full h-40 object-cover rounded-lg border border-[#9C4DF4]">
 
-            <?php
-          
-            
-            foreach ($classes as $class): ?>
-            <div class="p-8 flex items-center justify-center flex-col gap-4 bg-[#FFFFFF] rounded-2xl">
-                <div class="bg-[#FF6529] flex items-center w-[40px] h-[40px] rounded-full justify-center">
-                    <i class="fa-solid fa-graduation-cap text-xl text-white"></i>
+                            <div class="space-y-1">
+                                <h2 class="text-xl font-semibold text-[#4B0082]"><?php echo ($row['title']); ?></h2>
+                                <p><span class="font-semibold">Class:</span> <?php echo ($row['class']); ?></p>
+                                <p><span class="font-semibold">Instructor:</span> <?php echo ($row['instructor_name']); ?></p>
+
+                                <p><span class="font-semibold">Language:</span> <?php echo ($row['language']); ?></p>
+                                <p><span class="font-semibold">Price:</span> ৳<?php echo $row['price']; ?></p>
+                                <p class="font-semibold <?php echo $row['status'] === 'active' ? 'text-green-600' : 'text-red-600'; ?>">
+                                    Status: <?php echo $row['status']; ?>
+                                </p>
+                            </div>
+
+                            <a href="course_details.php?id=<?php echo $row['id']; ?>"
+                                class="mt-4 inline-block text-center bg-[#9C4DF4] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#7a2fdc] transition">
+                                Details
+                            </a>
+                        </div>
+                    <?php endwhile; ?>
                 </div>
-                <h1 class="text-2xl font-bold">
-                    <?= $class['name'] ?>
-                </h1>
-                <p>
-                    <?= $class['description'] ?> 
-                </p>
-                <a href="./<?= $class['link'] ?>"
-                    class="border border-[#9C4DF4] font-medium text-black px-3.5 py-2 rounded-lg cursor-pointer hover:bg-[#9C4DF4] hover:text-white">
-                    Class Details
-                </a>
-            </div>
-            <?php endforeach; ?>
-
-
-
-
-
+            <?php else: ?>
+                <p class="text-center text-gray-600">No courses found.</p>
+            <?php endif; ?>
         </div>
 
 

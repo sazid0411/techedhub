@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
           <form method="post" class=" w-[370px] flex flex-col items-center justify-center   gap-4">
 
             <div class="">
-              <p class="w-full  text-xl font-bold"> <?php echo $msg; ?> </p>
+              <p class="w-full  text-xl font-bold text-red-400"> <?php echo $msg; ?> </p>
             </div>
 
             <div class="w-full">
