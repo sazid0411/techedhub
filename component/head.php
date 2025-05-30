@@ -1,11 +1,9 @@
-<?php //session_start() 
-?>
-
 <head>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <script src="https://kit.fontawesome.com/1b37f18062.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <!-- Header -->
@@ -27,8 +25,8 @@
       <div class="flex gap-3">
         <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
           <a href="../User/profile.php"
-            class="bg-[#9C4DF4] font-medium text-white px-8 py-2 rounded-lg cursor-pointer hidden md:block">
-            Profile
+            class="bg-[#9C4DF4] font-medium text-white px-8   py-2 rounded-lg cursor-pointer hidden md:block">
+           Profile <i class="fa-solid fa-user pl-1"></i>
           </a>
         <?php else: ?>
           <a href="../User/login.php"
@@ -54,8 +52,10 @@
           <li><a href="../User/mentors.php" class="hover:text-[#9C4DF4]">Mentors</a></li>
           <li><a href="../User/about.php" class="hover:text-[#9C4DF4]">About</a></li>
         </ul>
+
         <div class="flex justify-end gap-4">
           <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+            <p></p>
             <a href="../User/profile.php"
               class="bg-[#9C4DF4] font-medium text-white px-3.5 py-2 rounded-lg cursor-pointer">
               Profile

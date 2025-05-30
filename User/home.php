@@ -1,11 +1,10 @@
 <?php
 session_start();
+require "../component/db_conn.php";
 
-// if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-//     header("Location: login.php");
-//     exit();
-// }
 
+$sql = "SELECT * FROM courses ORDER BY id ASC";
+$result = $conn->query($sql);
 
 ?>
 
@@ -37,7 +36,7 @@ session_start();
                     Grow up your skills <br />
                     by online courses <br />
                     with
-                    <span class="font-borel">Tech<span class="text-[#9C4DF4]">Ed</span>Hub.</span>
+                    <span class="font-borel">Tech<span class="text-[#9C4DF4]">Ed</span>Hub<span class="text-[#9C4DF4]">.</span></span>
                 </h1>
                 <p class="max-w-[607px] md:leading-relaxed text-[#5D5A6F] md:text-xl">
                     Eduvi is a Global training provider based across the UK that
@@ -50,6 +49,43 @@ session_start();
             </div>
         </div>
     </div>
+
+
+    <div class=" max-w-[1280px] mx-auto space-y-10 px-3 mt-20">
+        <h1 class="text-4xl text-center font-bold">Popular Courses<span class="text-[#9C4DF4]">.</span></h1>
+
+
+
+        <?php if ($result && $result->num_rows > 0): ?>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <div class="bg-[#EFEBF5] border border-[#9C4DF4] rounded-lg p-5 space-y-3 flex flex-col justify-between">
+                        <img src="<?php echo  ($row['thumbnail']); ?>" alt="Thumbnail" class="w-full h-40 object-cover rounded-lg border border-[#9C4DF4]">
+
+                        <div class="space-y-1">
+                            <h2 class="text-xl font-semibold text-[#4B0082]"><?php echo ($row['title']); ?></h2>
+                            <p><span class="font-semibold">Class:</span> <?php echo ($row['class']); ?></p>
+                            <p><span class="font-semibold">Instructor:</span> <?php echo ($row['instructor_name']); ?></p>
+
+                            <p><span class="font-semibold">Language:</span> <?php echo ($row['language']); ?></p>
+                            <p><span class="font-semibold">Price:</span> ৳<?php echo $row['price']; ?></p>
+                            <p class="font-semibold <?php echo $row['status'] === 'active' ? 'text-green-600' : 'text-red-600'; ?>">
+                                Status: <?php echo $row['status']; ?>
+                            </p>
+                        </div>
+
+                        <a href="course_details.php?id=<?php echo $row['id']; ?>"
+                            class="mt-4 inline-block text-center bg-[#9C4DF4] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#7a2fdc] transition">
+                            Details
+                        </a>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+        <?php else: ?>
+            <p class="text-center text-gray-600">No courses found.</p>
+        <?php endif; ?>
+    </div>
+
 
     <!-- secondd -->
     <section class="max-w-[1136px] mx-auto md:mt-[150px] place-items-center p-5">
@@ -65,9 +101,9 @@ session_start();
                 high-definition.
             </p>
             <a href="../User/course.php"
-            class="bg-[#9C4DF4] font-medium text-white px-8 py-3 rounded-lg cursor-pointer hidden md:block">
-            Visit Courses
-          </a>
+                class="bg-[#9C4DF4] font-medium text-white px-8 py-3 rounded-lg cursor-pointer hidden md:block">
+                Visit Courses
+            </a>
         </div>
 
         <div class="mt-5 md:mt-[60px] bg-white p-5 rounded-xl">

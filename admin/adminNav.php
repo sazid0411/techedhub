@@ -15,13 +15,14 @@
             <ul class="flex items-center justify-between gap-6 font-medium ">
                 <li><a href="./addCourse.php" class="hover:text-[#9C4DF4] text-lg navBtn">Add Course</a></li>
                 <li><a href="./addvideo.php" class="hover:text-[#9C4DF4] text-lg navBtn">Add Video</a></li>
-                <li><a href="" class="hover:text-[#9C4DF4] text-lg  navBtn">All Course</a></li>
-                <li><a href="" class="hover:text-[#9C4DF4] text-lg navBtn">Add Mentors</a></li>
-                <li><a href="" class="hover:text-[#9C4DF4] text-lg navBtn">All Student</a></li>
+                <li><a href="./addmentor.php" class="hover:text-[#9C4DF4] text-lg navBtn">Add Mentors</a></li>
+                <li><a href="./allCourse.php" class="hover:text-[#9C4DF4] text-lg  navBtn">All Course</a></li>
+                <li><a href="./allStudent.php" class="hover:text-[#9C4DF4] text-lg navBtn"> Students</a></li>
+                <li><a href="./mentor.php" class="hover:text-[#9C4DF4] text-lg navBtn"> Mentors</a></li>
             </ul>
         </div>
 
-        
+
         <div class="md:hidden p-2 cursor-pointer">
             <i id="menuBtn" class="  fa-solid fa-bars text-2xl cursor-pointer"></i>
         </div>
@@ -30,10 +31,12 @@
         <div id="menu"
             class="absolute bg-gray-100 right-0 top-10 rounded-lg w-[250px] p-6 space-y-3 hidden md:hidden">
             <ul class="text-right pr-2">
-                <li><a href="../User/home.php" class="hover:text-[#9C4DF4]">Add Course </a></li>
-                <li><a href="../User/courses.php" class="hover:text-[#9C4DF4]">All Course</a></li>
-                <li><a href="../User/mentors.php" class="hover:text-[#9C4DF4]">Add Mentors</a></li>
-                <li><a href="../User/about.php" class="hover:text-[#9C4DF4]">All Student </a></li>
+                <li><a href="./addCourse.php" class="hover:text-[#9C4DF4]  navBtn">Add Course</a></li>
+                <li><a href="./addvideo.php" class="hover:text-[#9C4DF4]  navBtn">Add Video</a></li>
+                <li><a href="./allCourse.php" class="hover:text-[#9C4DF4]   navBtn">All Course</a></li>
+                <li><a href="./addmentor.php" class="hover:text-[#9C4DF4] text-lg navBtn">Add Mentors</a></li>
+                <li><a href="./allStudent.php" class="hover:text-[#9C4DF4]  navBtn">All Student</a></li>
+                <li><a href="./mentor.php" class="hover:text-[#9C4DF4]  navBtn">All Mentors</a></li>
             </ul>
             <div class="flex justify-end gap-4">
 

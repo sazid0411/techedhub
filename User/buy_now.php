@@ -24,5 +24,5 @@ if ($result->num_rows === 0) {
 }
 
 
-header("Location: purchase.php?id=" . $course_id);
+header("Location: course_details.php?id=" . $course_id);
 exit();

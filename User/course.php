@@ -1,6 +1,5 @@
 <?php
 require "../component/db_conn.php";
-include "../component/classList.php";
 session_start();
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header("Location: login.php");
@@ -50,7 +49,7 @@ $result = $conn->query($sql);
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <div class="bg-[#EFEBF5] border border-[#9C4DF4] rounded-lg p-5 space-y-3 flex flex-col justify-between">
-                            <img src="<?php echo htmlspecialchars($row['thumbnail']); ?>" alt="Thumbnail" class="w-full h-40 object-cover rounded-lg border border-[#9C4DF4]">
+                            <img src="<?php echo  ($row['thumbnail']); ?>" alt="Thumbnail" class="w-full h-40 object-cover rounded-lg border border-[#9C4DF4]">
 
                             <div class="space-y-1">
                                 <h2 class="text-xl font-semibold text-[#4B0082]"><?php echo ($row['title']); ?></h2>
